@@ -27,20 +27,33 @@ class Controller_Question extends Controller
 		// Cache::set('test', 'String to be cached.', 3600 * 3);
 		// $content = Cache::get('test');
 		// Cache::delete('test');
-		// Cache::delete_all();
+		Cache::delete_all();
 
 		$data['question'] = Question::find($id);
 		$cacheID = 'answer_'.$id;
-		// Cache::set($cacheID, 'String to be cached.', 3600 * 3);
-		if(!Cache::get($cacheID))
+		try
 		{
-
+		    $data['answers'] = Cache::get($cacheID);
+		}
+		catch (\CacheNotFoundException $e)
+		{
 			$answers = Question::get_answers($id);
-			$data['answers'] = $answers;		
-			// Cache::set('test', 'String to be cached.', 3600 * 3);	
+			$data['answers'] = $answers;
+			Cache::set($cacheID, $data['answers'], 3600 * 13);
+			// return 'gan cache moi nha';
+		}	
+		$question = Question::find($id);
+		if(Input::post('answer') != '')
+		{
+			$new_answer = new Answer();
+			$new_answer->answer = Input::post('answer');
+			$question->answers[] = $new_answer;
+			$question->save();
 		}
 		// $answers = Question::get_answers($id);
 		// $data['answers'] = $answers;	
+		// Cache::delete_all();
+		// Cache::delete('test');
 		return View::forge('welcome/detail', $data);
 	}
 

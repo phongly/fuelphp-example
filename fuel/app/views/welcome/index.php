@@ -37,7 +37,7 @@
 	</header>
 	<div class="container">
 		<div class="jumbotron">
-			<h2>Welcome to Cache Tutorial!</h2>
+			<h2><a href="<?php echo Uri::create('');?>">Welcome to Cache Tutorial!</a> </h2>
 		</div>
 		<h4>Question List:</h4>
 	<?php foreach ($questions as $quest): ?>

@@ -39,7 +39,7 @@
 	</header>
 	<div class="container">
 		<div class="jumbotron">
-			<h2>Welcome to Cache Tutorial!</h2>
+			<h2><a href="<?php echo Uri::create('');?>">Welcome to Cache Tutorial!</a> </h2>
 		</div>
 		<h3><?php echo $question->question;?></h3>
 		<hr/>
@@ -52,7 +52,7 @@
 		<form method="post">
 		  <div class="form-group">
 		    <label for="answer">Bạn trả lời:</label>
-		  	<textarea id="answer" class="form-control" rows="3" placeholder="Câu trả lời.."></textarea>
+		  	<textarea name="answer" id="answer" class="form-control" rows="3" placeholder="Câu trả lời.."></textarea>
 		  	<input type="hidden" name="question_id" value="<?php echo $question->id;?>">
 		</div>
 		<button type="submit" class="btn btn-default">Submit</button>
